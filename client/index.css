@@ -1,0 +1,22 @@
+h1{
+    text-align: center;
+}
+.row{
+    display: grid;
+    font-size: 36px;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 10px;
+}
+button{
+    font-size: 24px;
+}
+.button{
+    padding-top: 14px;
+    padding-left: 50px;
+}
+#codel{
+    font-size: 20px;
+    padding-top:  14px;
+    padding-left: 50px;
+}
