@@ -1,7 +1,7 @@
 function butAction(){
-    // console.log("acton dơn");
     var email = document.getElementById("email").value;
-    postData(email);
+    alert("từ từ rồi nó chạy ahaha")
+    // postData(email);
 }
 // Hàm gửi yêu cầu POST từ client đến server
 async function postData(email) {
