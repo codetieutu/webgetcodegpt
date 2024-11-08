@@ -6,7 +6,7 @@ function butAction(){
 // Hàm gửi yêu cầu POST từ client đến server
 async function postData(email) {
     try {
-      const response = await fetch('http://localhost:5500/data', {
+      const response = await fetch('https://webgetcodegpt.onrender.com/data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
