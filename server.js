@@ -1,21 +1,21 @@
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
-const port = 5500;
+const port = 3000;
 const cors = require('cors');
 
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'getcodec672d_root',
-    password: 'CDXzqXGX8bYTkTcWcY4z',
-    database: 'getcodec672d_mail'
+    user: 'sggetgp_nhanguyen',
+    password: 'Nha190605@&*',
+    database: 'sggetgp_mail'
 });
 
 app.use(cors());
 app.use(express.json());
 
 function find(mail, callback) {
-    const query = 'SELECT mail, token FROM Mail WHERE mail = ?';
+    const query = 'SELECT * FROM Mail WHERE email = ?';
     connection.query(query, [mail], (err, results) => {
         if (err) {
             console.error('Lỗi khi tìm dữ liệu:', err);
@@ -23,12 +23,13 @@ function find(mail, callback) {
             return;
         }
         if (results.length > 0) {
-            const { token, mail } = results[0];
+            const { email, token } = results[0];
             console.log("", mail);
-            callback(mail, token, null);
+            callback(email, token, null);
         } else {
             callback(null, null, "Không tìm thấy dữ liệu");
         }
+    
     });
 }
 
@@ -82,22 +83,7 @@ app.post('/data', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
-// find("ekuahmosena@hotmail.com", (email, token, err) => {
-//     if (err!=null) {
-//         console.log("", err);
-//         return;
-//     }
-//     if (email && token) {
-//         console.log("mail", email);
-//         getcode(email, token).then(code =>{
-//             console.log("", code);
-//         });
-//     } else {
-//         console.log("Không tìm thấy dữ liệu cho email này");
-//         return;
-//     }
-// });
-// Đóng kết nối database khi thoát
+
 process.on('exit', () => {
     connection.end();
 });
