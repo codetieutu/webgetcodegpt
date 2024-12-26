@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
-const port = 3000;
+const port = 5500;
 const cors = require('cors');
 
 const connection = mysql.createConnection({
@@ -19,24 +19,35 @@ function find(mail, callback) {
     connection.query(query, [mail], (err, results) => {
         if (err) {
             console.error('Lỗi khi tìm dữ liệu:', err);
-            callback(null, null, err);
+            callback(null, null, null, err);
             return;
         }
         if (results.length > 0) {
-            const { email, token } = results[0];
+            const { email, token, client_id } = results[0];
             console.log("", mail);
-            callback(email, token, null);
+            callback(email, token, client_id, null);
         } else {
-            callback(null, null, "Không tìm thấy dữ liệu");
+            callback(null, null, null, "Không tìm thấy dữ liệu");
         }
     
     });
 }
-
-async function getcode(mail, token) {
+function update(data, callback) {
+    const query = "INSERT INTO Mail (email, token, client_id) values (?,?,?);";
+    connection.query(query, [data.email, data.token, data.client_id], (err) =>{
+        if (err) {
+            callback("error");
+        }
+        else {
+            callback("done");
+        }
+    });
+}
+async function getcode(mail, token, client_id) {
     const url = 'https://tools.dongvanfb.net/api/get_messages_oauth2';
+    if (client_id==null) {client_id="9e5f94bc-e8a4-4e73-b8be-63364c29d753"}
     const data = {
-        client_id: "9e5f94bc-e8a4-4e73-b8be-63364c29d753",
+        client_id: client_id,
         email: mail,
         refresh_token: token
     };
@@ -59,27 +70,72 @@ async function getcode(mail, token) {
         return null;
     }
 }
+function deleteOldData() {
+    const sql = `
+      DELETE FROM table_name
+      WHERE TIMESTAMPDIFF(HOUR, time, NOW()) >= 1
+    `;
+  
+    connection.query(sql, (error, results) => {
+      if (error) {
+        console.error('Lỗi khi xóa dữ liệu:', error);
+      } else {
+        console.log(`Đã xóa ${results.affectedRows} bản ghi.`);
+      }
+    });
+}
+  
+
+setInterval(() => {
+
+deleteOldData();
+}, 3600000); 
 
 // Endpoint xử lý yêu cầu POST đến đường dẫn /data
 app.post('/data', (req, res) => {
     const data = req.body;
     
     // Dùng callback để lấy dữ liệu từ database
-    find(data.email, (email, token, err) => {
+    find(data.email, (email, token, client_id, err) => {
         if (err!=null) {
             return res.status(500).json({ error: "Lỗi truy vấn database" +err });
         }
         if (email && token) {
-            getcode(email, token).then(subject =>{
-                res.json({ subject:subject });
+            getcode(email, token, client_id).then(subject =>{
+                res.status(200).json({ subject:subject });
             });
         } else {
             res.json({ message: "Không tìm thấy dữ liệu cho email này" });
         }
     });
 });
+app.post("/check", (req, res) =>{
+    const data = req.body;
+    find(data.email, (email,token, client_id, err) => {
+        if (err!=null) {
+            return res.status(500).json({err: "lỗi truy vấn dữ liệu"})
+        } else if(email && token){
+            return res.status(200).json({response:"done"})
+        } else{
+            return res.status(204).res.end();
+        }
+    });
+});
 
-// Khởi động server tại cổng 5500
+app.post("/update", (req, res)=>{
+    const data = req.body;
+    if (!data.email || !data.token) {
+        return res.status(400).json({ error: "Thiếu email hoặc token" });
+    }
+    update(data, (sta) =>{
+        if (sta==='done'){
+            return res.status(200).json({mess:'update done'});
+        }else{
+            return res.status(500).json({mess: 'update fail'});
+        }
+    });
+});
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
