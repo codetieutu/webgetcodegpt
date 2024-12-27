@@ -6,6 +6,51 @@
     font-family: 'Arial', sans-serif;
 }
 
+.verify-screen{  
+    position: absolute; /* Đặt vị trí tuyệt đối */
+    top: 50%; /* Đẩy phần tử xuống giữa */
+    left: 50%; /* Đẩy phần tử sang giữa */
+    transform: translate(-50%, -50%); /* Căn giữa chính xác */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+}
+.enter{
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    font-size: 13px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 20%;
+    margin-top: 20px;
+
+}
+.enter:hover{
+    background-color: #0056b3;
+}
+
+.error{
+    color: #ff4d4f;
+}
+.verify-screen input{
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.main-screen{
+    display: none;
+}
 /* Toàn bộ body */
 body {
     background-color: #f0f4f8;
@@ -51,7 +96,11 @@ header h1 {
     flex-direction: column;
     margin-bottom: 15px;
 }
-
+.turn{
+    text-align: center;
+    margin-bottom: 10px; /* Khoảng cách dưới nhãn */
+    color:#28a745;
+}
 .input-group label {
     font-size: 16px;
     margin-bottom: 5px;

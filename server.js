@@ -33,7 +33,7 @@ function find(mail, callback) {
     });
 }
 function update(data, callback) {
-    const query = "INSERT INTO Mail (email, token, client_id) values (?,?,?);";
+    const query = "INSERT INTO Mail (email, token, client_id, time) values (?,?,?, NOW());";
     connection.query(query, [data.email, data.token, data.client_id], (err) =>{
         if (err) {
             callback("error");
@@ -42,6 +42,18 @@ function update(data, callback) {
             callback("done");
         }
     });
+}
+function uppass(data, callback) {
+    const query="INSERT INTO verify (pass, times) values (?,?);";
+    connection.query(query, [data.pass, data.times], (err) =>{
+        if (err) {
+            callback("error");
+        }
+        else {
+            callback("done");
+        }
+    })
+
 }
 async function getcode(mail, token, client_id) {
     const url = 'https://tools.dongvanfb.net/api/get_messages_oauth2';
@@ -62,7 +74,7 @@ async function getcode(mail, token, client_id) {
         });
 
         const result = await response.json();
-        const subject = result.messages.find(message => message.subject.includes("Your ChatGPT code"));
+        const subject = result.messages.find(message => message.subject.includes("code is"));
         return subject.subject;
         
     } catch (error) {
@@ -70,10 +82,11 @@ async function getcode(mail, token, client_id) {
         return null;
     }
 }
+
 function deleteOldData() {
     const sql = `
-      DELETE FROM table_name
-      WHERE TIMESTAMPDIFF(HOUR, time, NOW()) >= 1
+      DELETE FROM Mail
+      WHERE TIMESTAMPDIFF(DAY, time, NOW()) >= 30
     `;
   
     connection.query(sql, (error, results) => {
@@ -89,7 +102,7 @@ function deleteOldData() {
 setInterval(() => {
 
 deleteOldData();
-}, 3600000); 
+}, 86400000); 
 
 // Endpoint xử lý yêu cầu POST đến đường dẫn /data
 app.post('/data', (req, res) => {
@@ -111,7 +124,7 @@ app.post('/data', (req, res) => {
 });
 app.post("/check", (req, res) =>{
     const data = req.body;
-    find(data.email, (email,token, client_id, err) => {
+    find(data.email, (email,token,client_id,err) => {
         if (err!=null) {
             return res.status(500).json({err: "lỗi truy vấn dữ liệu"})
         } else if(email && token){
@@ -128,6 +141,19 @@ app.post("/update", (req, res)=>{
         return res.status(400).json({ error: "Thiếu email hoặc token" });
     }
     update(data, (sta) =>{
+        if (sta==='done'){
+            return res.status(200).json({mess:'update done'});
+        }else{
+            return res.status(500).json({mess: 'update fail'});
+        }
+    });
+});
+app.post("/uppass", (req, res)=>{
+    const data = req.body;
+    if (!data.email || !data.token) {
+        return res.status(400).json({ error: "Thiếu " });
+    }
+    uppass(data, (sta) =>{
         if (sta==='done'){
             return res.status(200).json({mess:'update done'});
         }else{

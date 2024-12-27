@@ -7,28 +7,36 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <!-- Header nằm trên cùng -->
-    <header>
-        <h1>Get Your ChatGPT Verification Code</h1>
-    </header>
+    <div id="verify-screen" class="verify-screen">
+        <label for="password">Password:</label>
+        <input type="password" id="password" class="password">
+        <button onclick="verify()" id="enter" class="enter">Enter</button> 
+        <p id="error" class="error"></p>
+    </div>
+    <div id="main-screen" class="main-screen">
+        <!-- Header nằm trên cùng -->
+        <header>
+            <h1>Get Your ChatGPT Verification Code</h1>
+        </header>
 
-    <!-- Phần nội dung chính -->
-    <main>
-        <div class="form-container">
-            <div class="input-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email">
-                <!-- <label for="password">Password</label> -->
-                <input type="password" id="password" name="password" placeholder="Enter the password">
+        <!-- Phần nội dung chính -->
+        <main>
+            <div class="form-container">
+                <div class="input-group">
+                    <p id="turn" class="turn">Remaining turn: 0</p>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email">
+                </div>
+                <label id="notice" class="notice"></label>
+                <button onclick="butAction()" class="btn">Get Code</button>
+                <div class="result">
+                    <label id="code" class="code"></label>
+                    <label id="loading" class="loading"></label>
+                </div>
             </div>
-            <label id="notice" class="notice"></label>
-            <button onclick="butAction()" class="btn">Get Code</button>
-            <div class="result">
-                <label id="code" class="code"></label>
-                <label id="loading" class="loading"></label>
-            </div>
-        </div>
-    </main>
+        </main>
+    </div>
+    
 
     <script src="index.js"></script>
 </body>
