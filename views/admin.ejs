@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>upload data</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body>
+    <div id="password-screen" class="password-overlay">
+        <div class="password-container">
+            <h2>Nhập mật khẩu để truy cập</h2>
+            <input type="password" id="password-input" placeholder="Nhập mật khẩu">
+            <button class="verify">Xác nhận</button>
+            <p id="error-message"></p>
+        </div>
+    </div>
+
+    <div class="main-screen">
+        <header>
+            <h1>Manager</h1>
+        </header>
+        <select id="updateOption" name="updateOption">
+            <option value="email">Add mail</option>
+            <option value="password">Add pass</option>
+            <option value="adobe">Add secret Adobe</option>
+        </select>
+        <div id="input-data" class="input-data">
+            <label for="textarea">input:</label>
+            <textarea id="input-data" class="data" rows="14" placeholder="email|token|cliend_id" wrap="soft"></textarea>
+            <div class="button-container">
+                <button id="but" class="save">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/admin.js"></script>
+</body>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get 2FA Code</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/home.css">
+</head>
+
+<body>
+    <div id="main-screen" class="main-screen">
+        <!-- Header nằm trên cùng -->
+        <header>
+            <h1>Get 2FA Code</h1>
+        </header>
+
+        <div id="password-screen" class="password-overlay">
+            <div class="password-container">
+                <h2>Enter password to access</h2>
+                <input type="password" id="password-input">
+                <button class="verify">Access</button>
+                <p id="error-message"></p>
+            </div>
+        </div>
+        <!-- Phần nội dung chính -->
+        <main>
+            <div class="form-container">
+                <div class="input-group">
+                    <p class="turn">Turn: 0</p>
+                    <label for="text">ChatGPT email:</label>
+                    <input type="email" id="mail" class="mail" placeholder="Enter CHATGPT Email">
+                </div>
+                <label id="notice" class="notice"></label>
+                <button class="btn">Get Code</button>
+                <div class="result">
+                    <label id="code" class="code"></label>
+                    <label id="loading" class="loading"></label>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <script src="./js/home.js"></script>
+</body>
+
+</html>

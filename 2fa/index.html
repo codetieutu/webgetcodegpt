@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Verification Code</title>
+    <title>Get 2FA Code</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-    <div id="verify-screen" class="verify-screen">
-        <label for="password">Password:</label>
-        <input type="password" id="password" class="password">
-        <button onclick="verify()" id="enter" class="enter">Enter</button> 
-        <p id="error" class="error"></p>
-    </div>
     <div id="main-screen" class="main-screen">
         <!-- Header nằm trên cùng -->
         <header>
-            <h1>Get Your ChatGPT Verification Code</h1>
+            <h1>Get 2FA Code</h1>
         </header>
-
+        
+        <div id="password-screen" class="password-overlay">
+            <div class="password-container">
+                <h2>Enter password to access</h2>
+                <input type="password" id="password-input" placeholder="Nhập mật khẩu">
+                <button class="verify">Xác nhận</button>
+                <p id="error-message"></p>
+            </div>
+        </div> 
         <!-- Phần nội dung chính -->
         <main>
             <div class="form-container">
                 <div class="input-group">
-                    <p id="turn" class="turn">Remaining turn: 0</p>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email">
+                    <p class="turn">Turn: 0</p>
+                    <label for="text">Secret:</label>
+                    <input type="email" id="mail" class="mail" placeholder="Enter your Email">
                 </div>
                 <label id="notice" class="notice"></label>
-                <button onclick="butAction()" class="btn">Get Code</button>
+                <button class="btn">Get Code</button>
                 <div class="result">
                     <label id="code" class="code"></label>
                     <label id="loading" class="loading"></label>
@@ -36,8 +41,9 @@
             </div>
         </main>
     </div>
-    
+
 
     <script src="index.js"></script>
 </body>
+
 </html>

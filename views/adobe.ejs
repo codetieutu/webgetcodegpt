@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get 2FA Code</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/adobe.css">
+</head>
+
+<body>
+    <div id="main-screen" class="main-screen">
+        <!-- Header nằm trên cùng -->
+        <header>
+            <h1>Get Verify Code Adobe</h1>
+        </header>
+
+        <main>
+            <div class="form-container">
+                <div class="input-group">
+                    <label>Email:</label>
+                    <input type="email" id="mail" class="mail" placeholder="Enter your Email">
+                </div>
+                <label id="notice" class="notice"></label>
+                <button class="btn">Get Code</button>
+                <div class="result">
+                    <label id="code" class="code"></label>
+                    <!-- <label id="countdown" class="notice"></label> -->
+                </div>
+                <div id="spinner" aria-hidden="true"></div>
+
+            </div>
+        </main>
+    </div>
+
+
+    <script src="./js/adobe.js"></script>
+</body>
+
+</html>

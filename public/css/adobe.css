@@ -1,0 +1,175 @@
+/* index.css */
+
+/* Reset cơ bản */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9fafb;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #2563eb;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Overlay nhập mật khẩu */
+.password-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.password-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.password-container input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.password-container button {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.password-container p {
+    margin-top: 0.5rem;
+    color: red;
+    font-size: 0.9rem;
+}
+
+/* Nội dung chính */
+main {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+input.mail {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+button.btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.btn:hover {
+    background-color: #059669;
+}
+
+button.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.notice {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 13px;
+}
+
+.result {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.code {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+}
+
+/* #countdown {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    color: #2563eb;
+    font-weight: bold;
+} */
+
+/* Spinner tròn */
+/* Reset nhẹ để không bị méo do box model */
+#spinner {
+    display: none;
+    /* ẩn mặc định */
+    box-sizing: border-box;
+    width: 28px;
+    aspect-ratio: 1;
+    /* đảm bảo là hình vuông => tròn chuẩn */
+    border: 3px solid #cbd5e1;
+    /* màu nhạt xung quanh */
+    border-right-color: transparent;
+    /* tạo khe để thấy chuyển động */
+    border-radius: 50%;
+    animation: spin .6s linear infinite;
+    margin: 12px auto;
+    /* căn giữa dưới nút */
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(1turn);
+    }
+}
